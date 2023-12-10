@@ -1,0 +1,17 @@
+name: TEST Prepare new Release
+run-name: TEST ${{ github.actor }} is preparing a new Release 🚀
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Define Harbor Version
+jobs:
+  prepare_new_release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Trigger other Workflow
+        run: |
+          gh workflow --repo luka5/go-client run prepare-new-version.yml --field version=${{ github.event.inputs.version }}
